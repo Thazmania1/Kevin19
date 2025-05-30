@@ -1,0 +1,46 @@
+# ===============
+# Unity Generated
+# ===============
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# ===============
+# OS Generated
+# ===============
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===============
+# Visual Studio / JetBrains
+# ===============
+.vs/
+*.sln
+*.csproj
+*.unityproj
+*.userprefs
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.docstates
+
+# ===============
+# Unity Specific
+# ===============
+*.unitypackage
+
+# ===============
+# Other
+# ===============
+*.swp
+*.lock
+*.log
+*.pid
+*.seed
+*.pid.lock
