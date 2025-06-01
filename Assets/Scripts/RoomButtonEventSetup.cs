@@ -9,6 +9,6 @@ public class RoomButtonEventSetup : MonoBehaviour
         GameObject roamingSystemHolder = GameObject.Find("CurrentRoom");
         RoamingSystem roamingSystemReference = roamingSystemHolder.GetComponent<RoamingSystem>();
         Button buttonComponent = gameObject.GetComponent<Button>();
-        buttonComponent.onClick.AddListener(() => roamingSystemReference.ChangeRoom(transform.parent.name));
+        buttonComponent.onClick.AddListener(() => StartCoroutine(roamingSystemReference.ChangeRoom(transform.parent.name)));
     }
 }

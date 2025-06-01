@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +17,16 @@ public class RoamingSystem : MonoBehaviour
     // References the minimap floors.
     [SerializeField] private GameObject[] _floors;
 
+    // References the transition cover's Image component.
+    private Image _transitionCoverImage;
+
+    // Tracks if the player can change rooms.
+    private bool _canChangeRoom = true;
+
     private void Start()
     {
+        _transitionCoverImage = GameObject.Find("TransitionCover").GetComponent<Image>();
+
         _image = GetComponent<Image>();
 
         // Sets Kevin's room as the starting room.
@@ -33,8 +42,13 @@ public class RoamingSystem : MonoBehaviour
     }
 
     // This function is called when clicking a minimap room.
-    public void ChangeRoom(string clickedRoomName)
+    public IEnumerator ChangeRoom(string clickedRoomName)
     {
+        if (!_canChangeRoom) yield break;
+        _canChangeRoom = false;
+
+        yield return StartCoroutine(Transition(true));
+
         // Searchs for the corresponding room.
         foreach (Room room in _rooms)
         {
@@ -45,11 +59,11 @@ public class RoamingSystem : MonoBehaviour
             }
         }
 
-        // Uses the room's sprite.
         _image.sprite = _currentRoom.Image;
-
-        // Updates the accesible rooms.
         UpdateAccessibleRooms(_currentRoom);
+        yield return new WaitForSeconds(1); // A little delay for detail.
+        yield return StartCoroutine(Transition(false));
+        _canChangeRoom = true;
     }
 
     public void UpdateAccessibleRooms(Room room)
@@ -85,5 +99,27 @@ public class RoamingSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    // This method covers the screen completely in black for loading transitions.
+    public IEnumerator Transition(bool isLoading)
+    {
+        // Forced transition handler.
+        Color color = _transitionCoverImage.color;
+        float endAlpha = isLoading ? 1f : 0f;
+        color = isLoading ? new Color(color.r, color.g, color.b, 0) : new Color(color.r, color.g, color.b, 1);
+        float startAlpha = color.a;
+
+        // 0.5s timer.
+        float elapsedTime = 0f;
+        float timeObjective = 1f;
+        while (elapsedTime < timeObjective)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / timeObjective);
+            _transitionCoverImage.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
+        _transitionCoverImage.color = new Color(color.r, color.g, color.b, endAlpha);
     }
 }
