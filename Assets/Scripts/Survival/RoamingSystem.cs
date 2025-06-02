@@ -74,7 +74,7 @@ public class RoamingSystem : MonoBehaviour
             foreach (Transform roomObject in floor.transform)
             {
                 // Next object if it's the the floor's text.
-                if (roomObject.name.EndsWith("Text")) continue;
+                if (roomObject.name.EndsWith("Text")) break;
 
                 // Handles the logic of room navigation, alongside with visual cues.
                 Transform roomObjectClickable = roomObject.GetChild(0);
