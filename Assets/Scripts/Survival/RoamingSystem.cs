@@ -9,23 +9,27 @@ public class RoamingSystem : MonoBehaviour
     [SerializeField] private List<Room> _rooms;
 
     // Tracks the current room.
-    private Room _currentRoom;
+    private static Room _currentRoom;
 
     // References the object's Image component.
     private Image _image;
 
-    // References the minimap floors.
-    [SerializeField] private GameObject[] _floors;
+    // References the [Minimaps] folder.
+    [SerializeField] private GameObject _minimaps;
 
     // References the transition cover's Image component.
+    [SerializeField] private GameObject _transitionCover;
     private Image _transitionCoverImage;
 
     // Tracks if the player can change rooms.
     private bool _canChangeRoom = true;
 
+    // References the object's audio source component.
+    private AudioSource _audioSource;
+
     private void Start()
     {
-        _transitionCoverImage = GameObject.Find("TransitionCover").GetComponent<Image>();
+        _transitionCoverImage = _transitionCover.GetComponent<Image>();
 
         _image = GetComponent<Image>();
 
@@ -38,6 +42,8 @@ public class RoamingSystem : MonoBehaviour
                 break;
             }
         }
+
+        _audioSource = GetComponent<AudioSource>();
         UpdateAccessibleRooms(_currentRoom);
     }
 
@@ -47,6 +53,7 @@ public class RoamingSystem : MonoBehaviour
         if (!_canChangeRoom) yield break;
         _canChangeRoom = false;
 
+        _audioSource.Play();
         yield return StartCoroutine(Transition(true));
 
         // Searchs for the corresponding room.
@@ -69,9 +76,9 @@ public class RoamingSystem : MonoBehaviour
     public void UpdateAccessibleRooms(Room room)
     {
         // Searches through every floor and their rooms.
-        foreach (GameObject floor in _floors)
+        foreach (Transform floor in _minimaps.transform)
         {
-            foreach (Transform roomObject in floor.transform)
+            foreach (Transform roomObject in floor)
             {
                 // Next object if it's the the floor's text.
                 if (roomObject.name.EndsWith("Text")) break;
@@ -122,4 +129,7 @@ public class RoamingSystem : MonoBehaviour
         }
         _transitionCoverImage.color = new Color(color.r, color.g, color.b, endAlpha);
     }
+
+    // Getters.
+    public static Room CurrentRoom => _currentRoom;
 }

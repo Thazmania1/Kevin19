@@ -9,8 +9,11 @@ public class SkibidiToiletBehaviour : MonoBehaviour
     // References the skibidi toilet's sprites.
     [SerializeField] private Sprite _idle, _flush;
 
-    // References the [Minimaps] folders.
+    // References the [Minimaps] folder.
     [SerializeField] private GameObject _minimaps;
+
+    // References the [Interactive] folder.
+    [SerializeField] private GameObject _interactive;
 
     // References the manager's audio source.
     private AudioSource _audioSource;
@@ -37,6 +40,7 @@ public class SkibidiToiletBehaviour : MonoBehaviour
 
     private IEnumerator SpawnSkibidiToilet()
     {
+        _isFlushed = false;
         RectTransform randomFloor = _minimaps.transform.GetChild(Random.Range(0, 3)) as RectTransform;
         GameObject spawnedSkibidiToilet = Instantiate(_skibidiToiletCuePrefab, randomFloor);
 
@@ -46,6 +50,15 @@ public class SkibidiToiletBehaviour : MonoBehaviour
         {
             yield return null;
         }
-        Destroy(spawnedSkibidiToilet);
+
+        if (!_isFlushed)
+        {
+            StartCoroutine(GetComponent<SkibidiToiletJumpscareHandler>().Jumpscare());
+        }
+        else
+        {
+            _audioSource.Stop();
+            Destroy(spawnedSkibidiToilet);
+        }
     }
 }
