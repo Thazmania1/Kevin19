@@ -38,7 +38,7 @@ public class SkibidiToiletBehaviour : MonoBehaviour
     // Consistent method.
     private IEnumerator SkibidiRandomizer()
     {
-        // The game has 1 in 10 chances to spawn a skibidi toilet every 8 seconds.
+        // The game has 1 in 5 chances to spawn a skibidi toilet every 8 seconds.
         while (true)
         {
             yield return new WaitForSeconds(8);
@@ -49,10 +49,9 @@ public class SkibidiToiletBehaviour : MonoBehaviour
     private IEnumerator SpawnSkibidiToilet()
     {
         _isFlushed = false;
-        RectTransform randomFloor = _minimaps.transform.GetChild(Random.Range(0, 3)) as RectTransform;
+        RectTransform randomFloor = _minimaps.transform.GetChild(Random.Range(0, _minimaps.transform.childCount)) as RectTransform;
         GameObject spawnedSkibidiToilet = Instantiate(_skibidiToiletCuePrefab, randomFloor);
         _currentBathroom = $"{randomFloor.name.Substring(1, randomFloor.name.Length - 2)}Bathroom";
-        Debug.Log(_currentBathroom);
 
         // The player has until the song ends to deal with the skibidi toilet.
         _skibidiSong.Play();
