@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -132,4 +133,5 @@ public class RoamingSystem : MonoBehaviour
 
     // Getters.
     public static Room CurrentRoom => _currentRoom;
+    public List<Room> Rooms => _rooms;
 }
