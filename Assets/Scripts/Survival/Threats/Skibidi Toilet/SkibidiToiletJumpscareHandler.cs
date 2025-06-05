@@ -16,6 +16,7 @@ public class SkibidiToiletJumpscareHandler : JumpscareHandler
     {
         _isJumpscaring = true; // Makes sure no one else can jumpscare.
         _minimaps.SetActive(false);
+        _items.SetActive(false);
         Instantiate(_skibidiJumpscarePrefab, _jumpscares.transform);
         _audioSource.Play();
 

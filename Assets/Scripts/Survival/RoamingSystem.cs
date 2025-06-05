@@ -118,12 +118,12 @@ public class RoamingSystem : MonoBehaviour
         float startAlpha = color.a;
 
         // 0.5s timer.
-        float elapsedTime = 0f;
+        float timeElapsed = 0f;
         float timeObjective = 1f;
-        while (elapsedTime < timeObjective)
+        while (timeElapsed < timeObjective)
         {
-            elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / timeObjective);
+            timeElapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, timeElapsed / timeObjective);
             _transitionCoverImage.color = new Color(color.r, color.g, color.b, alpha);
             yield return null;
         }

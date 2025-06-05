@@ -75,7 +75,7 @@ public class SkibidiToiletBehaviour : MonoBehaviour
     }
 
     // Notifies the script of when the player is currently in the same bathroom as skibidi toilet.
-    public void NotifyPlayerCurrentRoom(Room room)
+    private void NotifyPlayerCurrentRoom(Room room)
     {
         _interactiveSkibidiToilet.SetActive(room.Name.Equals(_currentBathroom));
     }

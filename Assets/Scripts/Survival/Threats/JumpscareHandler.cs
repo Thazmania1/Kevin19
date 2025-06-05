@@ -10,6 +10,9 @@ public abstract class JumpscareHandler : MonoBehaviour
     // References the [Minimaps] folder.
     [SerializeField] protected GameObject _minimaps;
 
+    // References the [Items] folder.
+    [SerializeField] protected GameObject _items;
+
     // References the [Jumpscares] folder.
     [SerializeField] protected GameObject _jumpscares;
 
