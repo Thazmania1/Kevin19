@@ -57,7 +57,7 @@ public class SkibidiToiletBehaviour : MonoBehaviour
         _skibidiSong.Play();
         while (_skibidiSong.isPlaying && !_isFlushed)
         {
-            NotifyPlayerCurrentRoom(RoamingSystem.CurrentRoom);
+            _interactiveSkibidiToilet.SetActive(RoamingSystem.CurrentRoom.Name.Equals(_currentBathroom)); // Notifies the script of when the player is currently in the same bathroom as skibidi toilet.
             yield return null;
         }
         if (!_isFlushed)
@@ -72,12 +72,6 @@ public class SkibidiToiletBehaviour : MonoBehaviour
             _currentBathroom = "";
             _flushSound.Play();
         }
-    }
-
-    // Notifies the script of when the player is currently in the same bathroom as skibidi toilet.
-    private void NotifyPlayerCurrentRoom(Room room)
-    {
-        _interactiveSkibidiToilet.SetActive(room.Name.Equals(_currentBathroom));
     }
 
     // Called when clicking an interactable skibidi toilet.
