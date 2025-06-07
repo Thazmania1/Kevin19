@@ -16,6 +16,9 @@ public abstract class JumpscareHandler : MonoBehaviour
     // References the [Jumpscares] folder.
     [SerializeField] protected GameObject _jumpscares;
 
+    // References the Task object.
+    [SerializeField] protected GameObject _task;
+
     // References the object's sound source component.
     protected AudioSource _audioSource;
 

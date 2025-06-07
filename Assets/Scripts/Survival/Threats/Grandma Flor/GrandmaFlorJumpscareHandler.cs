@@ -2,10 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SkibidiToiletJumpscareHandler : JumpscareHandler
+public class GrandmaFlorJumpscareHandler : JumpscareHandler
 {
-    // References the skibidi jumpscare prefab.
-    [SerializeField] private GameObject _skibidiJumpscarePrefab;
+    // References the grandma jumpscare prefab.
+    [SerializeField] private GameObject _grandmaJumpscarePrefab;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class SkibidiToiletJumpscareHandler : JumpscareHandler
         _minimaps.SetActive(false);
         _items.SetActive(false);
         _task.SetActive(false);
-        Instantiate(_skibidiJumpscarePrefab, _jumpscares.transform);
+        Instantiate(_grandmaJumpscarePrefab, _jumpscares.transform);
         _audioSource.Play();
 
         // 1s delay before getting sent to the menu.

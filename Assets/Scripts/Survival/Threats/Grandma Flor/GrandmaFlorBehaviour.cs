@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,10 @@ public class GrandmaFlorBehaviour : MonoBehaviour
     [SerializeField] private GameObject _roamingSystem;
     private RoamingSystem _roamingSystemScript;
 
+    // References the task text object and its TextMeshProUGUI component.
+    [SerializeField] private GameObject _taskText;
+    private TextMeshProUGUI _taskTextUGUI;
+
     private void Start()
     {
         AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
@@ -48,15 +53,17 @@ public class GrandmaFlorBehaviour : MonoBehaviour
         _waterBottleItemImage = images[1];
         _walkingStickItemImage = images[2];
         _roamingSystemScript = _roamingSystem.GetComponent<RoamingSystem>();
+        _taskTextUGUI = _taskText.GetComponent<TextMeshProUGUI>();
         StartCoroutine(GrandmaFlorRandomizer());
     }
 
     // Consistent method.
     private IEnumerator GrandmaFlorRandomizer()
     {
-        // Every 30 secons, this chick will annoy the player in one of 2 ways.
+        // Every 30 seconds, this chick will annoy the player in one of 2 ways.
         while (true)
         {
+            _taskTextUGUI.text = "";
             yield return new WaitForSeconds(30);
             int randomTask = Random.Range(0, 2);
             if (randomTask == 0)
@@ -75,10 +82,11 @@ public class GrandmaFlorBehaviour : MonoBehaviour
         _isBottleFilled = false;
 
         // The player has 60 seconds to get the water bottle, fill it, and return it.
-        float timeElapsed = 0;
-        while (timeElapsed < 60f)
+        float timeElapsed = 60;
+        while (timeElapsed > 0f)
         {
-            timeElapsed += Time.deltaTime;
+            _taskTextUGUI.text = $"Llena la botella de la abuela y devuelvela: {(int)timeElapsed}";
+            timeElapsed -= Time.deltaTime;
             if (!_hasBottle)
             {
                 _interactiveWaterBottle.SetActive(RoamingSystem.CurrentRoom.Name.Equals("Grandma"));
@@ -107,7 +115,7 @@ public class GrandmaFlorBehaviour : MonoBehaviour
 
         if (!(!_hasBottle && _isBottleFilled))
         {
-            // TODO: Jumpscare.
+            StartCoroutine(GetComponent<GrandmaFlorJumpscareHandler>().Jumpscare());
         }
     }
 
@@ -123,10 +131,11 @@ public class GrandmaFlorBehaviour : MonoBehaviour
         _isWalkingStickFound = false;
 
         // The player has 90 seconds to get the water bottle, fill it, and return it.
-        float timeElapsed = 0;
-        while (timeElapsed < 90f)
+        float timeElapsed = 90;
+        while (timeElapsed > 0f)
         {
-            timeElapsed += Time.deltaTime;
+            _taskTextUGUI.text = $"Busca el bastón de la abuela y traeselo: {(int)timeElapsed}";
+            timeElapsed -= Time.deltaTime;
             if (!_isWalkingStickFound)
             {
                 if (!_hasWalkingStick)
@@ -157,7 +166,7 @@ public class GrandmaFlorBehaviour : MonoBehaviour
 
         if (!(_isWalkingStickFound && !_hasWalkingStick))
         {
-            // TODO: Jumpscare.
+            StartCoroutine(GetComponent<GrandmaFlorJumpscareHandler>().Jumpscare());
         }
     }
 

@@ -69,7 +69,7 @@ public class RoamingSystem : MonoBehaviour
 
         _image.sprite = _currentRoom.Image;
         UpdateAccessibleRooms(_currentRoom);
-        yield return new WaitForSeconds(1); // A little delay for detail.
+        yield return new WaitForSeconds(0.25f); // A little delay for detail.
         yield return StartCoroutine(Transition(false));
         _canChangeRoom = true;
     }
