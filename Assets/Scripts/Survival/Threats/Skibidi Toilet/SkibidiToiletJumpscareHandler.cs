@@ -18,6 +18,7 @@ public class SkibidiToiletJumpscareHandler : JumpscareHandler
         _minimaps.SetActive(false);
         _items.SetActive(false);
         _task.SetActive(false);
+        _timeLeft.SetActive(false);
         Instantiate(_skibidiJumpscarePrefab, _jumpscares.transform);
         _audioSource.Play();
 

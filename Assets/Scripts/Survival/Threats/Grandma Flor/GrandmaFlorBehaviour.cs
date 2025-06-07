@@ -85,7 +85,7 @@ public class GrandmaFlorBehaviour : MonoBehaviour
         float timeElapsed = 60;
         while (timeElapsed > 0f)
         {
-            _taskTextUGUI.text = $"Llena la botella de la abuela y devuelvela: {(int)timeElapsed}";
+            _taskTextUGUI.text = $"Llena la botella de la abuela y devuelvela: {(int)timeElapsed}s";
             timeElapsed -= Time.deltaTime;
             if (!_hasBottle)
             {
@@ -134,7 +134,7 @@ public class GrandmaFlorBehaviour : MonoBehaviour
         float timeElapsed = 90;
         while (timeElapsed > 0f)
         {
-            _taskTextUGUI.text = $"Busca el bastón de la abuela y traeselo: {(int)timeElapsed}";
+            _taskTextUGUI.text = $"Busca el bastón de la abuela y traeselo: {(int)timeElapsed}s";
             timeElapsed -= Time.deltaTime;
             if (!_isWalkingStickFound)
             {

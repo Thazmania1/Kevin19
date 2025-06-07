@@ -19,6 +19,9 @@ public abstract class JumpscareHandler : MonoBehaviour
     // References the Task object.
     [SerializeField] protected GameObject _task;
 
+    // References the TimeLeft object.
+    [SerializeField] protected GameObject _timeLeft;
+
     // References the object's sound source component.
     protected AudioSource _audioSource;
 
